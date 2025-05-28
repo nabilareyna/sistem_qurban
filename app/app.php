@@ -17,7 +17,6 @@ $routes->post('/login', 'AuthController@loginStore');
 $routes->get('/logout', 'AuthController@logout', [AuthMiddleware::class]);
 
 // Admin routes
-$routes->get('/admin', 'AdminController@index', [AuthMiddleware::class]);
 $routes->get('/admin/users', 'AdminController@showUsers', [AuthMiddleware::class]);
 $routes->get('/admin/users/{id}/edit', 'AdminController@editUser', [AuthMiddleware::class]);
 $routes->post('/admin/users/{id}/update', 'AdminController@updateUser', [AuthMiddleware::class]);
