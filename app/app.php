@@ -10,8 +10,8 @@ $routes = new Routes();
 
 $routes->get('/dashboard', 'DashboardController@index', [AuthMiddleware::class]);
 
-$routes->get('/register', 'AuthController@register', [RedirectIfAuth::class]);
-$routes->post('/register', 'AuthController@registerStore');
+// $routes->get('/register', 'AuthController@register', [RedirectIfAuth::class]);
+// $routes->post('/register', 'AuthController@registerStore');
 $routes->get('/login', 'AuthController@login', [RedirectIfAuth::class]);
 $routes->post('/login', 'AuthController@loginStore');
 $routes->get('/logout', 'AuthController@logout', [AuthMiddleware::class]);
@@ -30,19 +30,25 @@ $routes->get('/laporan', 'AdminController@laporan');
 $routes->get('/laporan/export', 'AdminController@export');
 
 //Panitia & Admin routes
-$routes->get('/hewan', 'HewanController@index', [AuthMiddleware::class]);
-$routes->get('/hewan/create', 'HewanController@create', [AuthMiddleware::class]);
-$routes->post('/hewan/store', 'HewanController@store');
 
+//qurban
+$routes->get('/qurban', 'QurbanController@index', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/qurban/create', 'QurbanController@create', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->post('/qurban/store', 'QurbanController@store', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/qurban/{id}/edit', 'QurbanController@edit', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->post('/qurban/{id}/update', 'QurbanController@update', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/qurban/{id}/delete', 'QurbanController@delete', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+//disribusi
+$routes->get('/distribusi', 'DistribusiController@index', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/distribusi/create', 'DistribusiController@scan', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->post('/distribusi/store', 'DistribusiController@store', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/distribusi/{id}/edit', 'DistribusiController@edit', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->post('/distribusi/{id}/update', 'DistribusiController@update', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/distribusi/{id}/delete', 'DistribusiController@delete', [[AuthMiddleware::class, ['admin', 'panitia']]]);
 // BERQURBAN - KONTRIBUSI
-$routes->get('/kontribusi', 'KontribusiController@index');
-$routes->get('/kontribusi/create', 'KontribusiController@create');
-$routes->post('/kontribusi/store', 'KontribusiController@store');
 
-// PANITIA - DISTRIBUSI
-$routes->get('/distribusi', 'DistribusiController@index');
-$routes->get('/distribusi/scan', 'DistribusiController@scan');
-$routes->post('/distribusi/store', 'DistribusiController@store');
+// ADMIN-PANITIA - DISTRIBUSI
+
 
 // WARGA - PROFILE & KARTU
 $routes->get('/profile', 'ProfileController@index');

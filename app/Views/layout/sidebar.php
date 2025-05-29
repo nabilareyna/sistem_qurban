@@ -25,15 +25,15 @@
 
         <?php if ($role === 'admin' || $role === 'panitia'): ?>
             <li class="nav-item">
-                <a class="nav-link collapsed " href="index.html">
-                    <i class="bi bi-grid"></i>
+                <a class="nav-link collapsed" href="/qurban">
+                    <i class="bi bi-list"></i>
                     <span>Peserta Qurban</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/qurban">
+                <a class="nav-link collapsed" href="/distribusi">
                     <i class="bi bi-list"></i>
-                    <span>Peserta Qurban</span>
+                    <span>Distribusi Qurban</span>
                 </a>
             </li>
             <li class="nav-item">
