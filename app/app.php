@@ -22,9 +22,13 @@ $routes->get('/admin/users/{id}/edit', 'AdminController@editUser', [AuthMiddlewa
 $routes->post('/admin/users/{id}/update', 'AdminController@updateUser', [AuthMiddleware::class]);
 $routes->post('/admin/users/{id}/delete', 'AdminController@deleteUser', [AuthMiddleware::class]);
 
-$routes->get('/admin/keuangan', 'AdminController@listTransaksi', [AuthMiddleware::class]);
-$routes->get('/admin/keuangan/create', 'AdminController@listTransaksi', [AuthMiddleware::class]);
-$routes->post('/admin/keuangan/store', 'AdminController@listTransaksi', [AuthMiddleware::class]);
+$routes->get('/admin/keuangan', 'KeuanganController@index', [[AuthMiddleware::class, ['admin']]]);
+$routes->get('/admin/keuangan/create', 'KeuanganController@create', [[AuthMiddleware::class, ['admin']]]);
+$routes->post('/admin/keuangan/store', 'KeuanganController@store', [[AuthMiddleware::class, ['admin']]]);
+$routes->get('/admin/keuangan/{id}/edit', 'KeuanganController@edit', [[AuthMiddleware::class, ['admin']]]);
+$routes->post('/admin/keuangan/{id}/update', 'KeuanganController@update', [[AuthMiddleware::class, ['admin']]]);
+$routes->get('/admin/keuangan/{id}/delete', 'KeuanganController@delete', [[AuthMiddleware::class, ['admin']]]);
+
 
 $routes->get('/laporan', 'AdminController@laporan');
 $routes->get('/laporan/export', 'AdminController@export');
