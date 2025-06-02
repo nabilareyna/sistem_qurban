@@ -110,4 +110,59 @@ class Model extends Connection
         $this->stmt->execute();
         return $this->stmt->fetch();
     }
+
+    public function truncate()
+    {
+        $sql = "TRUNCATE TABLE {$this->table}";
+        $stmt = $this->connect->prepare($sql);
+        return $stmt->execute();
+    }
+
+    public function sum($column)
+    {
+        $sql = "SELECT SUM($column) AS total FROM {$this->table}";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result->total ?? 0;
+    }
+
+    public function withUserById($id)
+    {
+        $sql = "SELECT distribusi.*, users.name, users.nik 
+            FROM distribusi 
+            JOIN users ON users.id = distribusi.user_id
+            WHERE distribusi.id = :id";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function count()
+    {
+        if (!$this->stmt) {
+            throw new \Exception("Query not prepared. Use where() first.");
+        }
+
+        $sql = $this->stmt->queryString;
+        $sql = str_replace('*', 'COUNT(*) as total', $sql);
+
+        $stmt = $this->connect->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        return $result->total ?? 0;
+    }
+
+    public function withHewanAndUser()
+    {
+        $sql = "SELECT qurbans.*, users.name, users.nik, hewans.jenis, hewans.harga
+            FROM qurbans
+            JOIN users ON users.id = qurbans.user_id
+            JOIN hewans ON hewans.id = qurbans.hewan_id";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

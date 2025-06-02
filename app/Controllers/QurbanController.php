@@ -2,22 +2,23 @@
 
 namespace App\Controllers;
 
-use App\Cores\Views;
 use App\Models\Qurban;
+use App\Models\Hewan;
 use App\Models\User;
+use App\Services\Auth;
+use App\Cores\Views;
 use App\Cores\Validate;
 use App\Cores\Flash;
-use App\Services\Auth;
 
 class QurbanController
 {
     public function index()
     {
-        $qurban = new Qurban();
-        $qurbans = $qurban->withUser(); // inner join ke users
+        $model = new Qurban();
+        $data = $model->withHewanAndUser(); // JOIN untuk tampilkan nama hewan dan user
 
         echo Views::render('qurban.index', [
-            'qurbans' => $qurbans,
+            'qurbans' => $data,
             'user' => Auth::user(),
             'role' => Auth::user()->role
         ]);
@@ -25,11 +26,12 @@ class QurbanController
 
     public function create()
     {
-        $user = new User();
-        $users = $user->all();
+        $users = (new User())->where('role', '=', 'berqurban')->get();
+        $hewans = (new Hewan())->all();
 
         echo Views::render('qurban.create', [
             'users' => $users,
+            'hewans' => $hewans,
             'user' => Auth::user(),
             'role' => Auth::user()->role
         ]);
@@ -42,7 +44,7 @@ class QurbanController
 
         $validate->validate($data, [
             'user_id' => 'required',
-            'jenis_hewan' => 'required',
+            'hewan_id' => 'required',
             'jumlah' => 'required'
         ]);
 
@@ -52,69 +54,22 @@ class QurbanController
                     Flash::set("error_$field", $msg);
                 }
             }
+
+            Flash::setOld($data);
             header('Location: /qurban/create');
             exit;
         }
 
-        $biaya_per_ekor = $data['jenis_hewan'] === 'sapi' ? 3000000 : 2750000;
-        $total_biaya = $biaya_per_ekor * $data['jumlah'];
-
-        $qurban = new Qurban();
-        $qurban->create([
+        $model = new Qurban();
+        $model->create([
             'user_id' => $data['user_id'],
-            'jenis_hewan' => $data['jenis_hewan'],
-            'jumlah' => $data['jumlah'],
-            'biaya' => $total_biaya,
+            'hewan_id' => $data['hewan_id'],
+            'jumlah' => $data['jumlah'] ?? 1,
             'status_bayar' => $data['status_bayar'] ?? 'belum'
         ]);
 
+        Flash::success('global', 'Peserta qurban berhasil ditambahkan');
         header('Location: /qurban');
         exit;
     }
-
-    public function edit($id)
-    {
-        $qurban = new Qurban();
-        $found = $qurban->where('id', '=', $id)->first();
-
-        $user = new User();
-        $users = $user->all();
-
-        echo Views::render('qurban.edit', [
-            'qurban' => $found,
-            'users' => $users,
-            'user' => Auth::user(),
-            'role' => Auth::user()->role
-        ]);
-    }
-
-    public function update($id)
-    {
-        $data = $_POST;
-        $qurban = new Qurban();
-
-        $biaya_per_ekor = $data['jenis_hewan'] === 'sapi' ? 3000000 : 2750000;
-        $total_biaya = $biaya_per_ekor * $data['jumlah'];
-
-        $qurban->where('id', '=', $id)->update([
-            'user_id' => $data['user_id'],
-            'jenis_hewan' => $data['jenis_hewan'],
-            'jumlah' => $data['jumlah'],
-            'biaya' => $total_biaya,
-            'status_bayar' => $data['status_bayar']
-        ]);
-
-        header('Location: /qurban');
-        exit;
-    }
-
-    public function delete($id)
-    {
-        $qurban = new Qurban();
-        $qurban->delete($id); // ✅ langsung pakai delete($id)
-
-        header('Location: /qurban');
-        exit;
-    }
-
 }

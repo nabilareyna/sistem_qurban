@@ -10,38 +10,49 @@
 
     <div class="card">
         <div class="card-body pt-3">
-            <table class="table table-bordered">
-                <thead>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
                     <tr>
+                        <th>#</th>
+                        <th>Nama Warga</th>
                         <th>NIK</th>
-                        <th>Nama</th>
                         <th>Jenis Hewan</th>
-                        <th>Jumlah</th>
-                        <th>Biaya</th>
+                        <th>Jumlah Bagian</th>
+                        <th>Harga Hewan</th>
                         <th>Status Bayar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($qurbans as $q): ?>
+                    <?php if (count($qurbans) > 0): ?>
+                        <?php $no = 1;
+                        foreach ($qurbans as $row): ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= htmlspecialchars($row->user_name) ?></td>
+                                <td><?= htmlspecialchars($row->nik) ?></td>
+                                <td><?= ucfirst($row->hewan_jenis) ?></td>
+                                <td><?= $row->jumlah ?> bagian</td>
+                                <td>Rp<?= number_format(	$row->hewan_harga, 0, ',', '.') ?></td>
+                                <td>
+                                    <?php if ($row->status_bayar === 'lunas'): ?>
+                                        <span class="badge bg-success">Lunas</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-warning text-dark">Belum</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <a href="/qurban/edit/<?= $row->id ?>" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="/qurban/delete/<?= $row->id ?>" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    <?php else: ?>
                         <tr>
-                            <td><?= $q->nik ?></td>
-                            <td><?= $q->name ?></td>
-                            <td><?= ucfirst($q->jenis_hewan) ?></td>
-                            <td><?= $q->jumlah ?></td>
-                            <td>Rp<?= number_format($q->biaya, 0, ',', '.') ?></td>
-                            <td>
-                                <span class="badge bg-<?= $q->status_bayar === 'lunas' ? 'success' : 'warning' ?>">
-                                    <?= ucfirst($q->status_bayar) ?>
-                                </span>
-                            </td>
-                            <td>
-                                <a href="/qurban/<?= $q->id ?>/edit" class="btn btn-sm btn-primary">Edit</a>
-                                <a href="/qurban/<?= $q->id ?>/delete" onclick="return confirm('Yakin hapus?')"
-                                    class="btn btn-sm btn-danger">Hapus</a>
-                            </td>
+                            <td colspan="8" class="text-center">Belum ada data peserta qurban.</td>
                         </tr>
-                    <?php endforeach ?>
+                    <?php endif ?>
                 </tbody>
             </table>
         </div>
