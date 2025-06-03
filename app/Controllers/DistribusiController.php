@@ -11,6 +11,7 @@ use App\Cores\Validate;
 use App\Cores\Flash;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Writer\WriterInterface;
 
 class DistribusiController
 {
@@ -115,8 +116,7 @@ class DistribusiController
     public function kartuQurban($id)
     {
         $model = new Distribusi();
-        $distribusi = $model->withUserById($id);
-
+        $distribusi = $model->withUserAndRoleById($id);
 
         if (!$distribusi) {
             Flash::error('global', 'Data distribusi tidak ditemukan!');
@@ -128,6 +128,8 @@ class DistribusiController
         $qrCode = $this->generateQRCode($distribusi->token);
 
         echo Views::render('distribusi/kartu', [
+            'user' => Auth::user(),
+            'role' => Auth::user()->role,
             'data' => $distribusi,
             'qrcode' => $qrCode
         ]);

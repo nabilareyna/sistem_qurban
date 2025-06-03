@@ -50,9 +50,11 @@ $routes->get('/distribusi/{id}/edit', 'DistribusiController@edit', [[AuthMiddlew
 $routes->post('/distribusi/{id}/update', 'DistribusiController@update', [[AuthMiddleware::class, ['admin', 'panitia']]]);
 $routes->get('/distribusi/{id}/delete', 'DistribusiController@delete', [[AuthMiddleware::class, ['admin', 'panitia']]]);
 $routes->post('/distribusi/hitung-otomatis', 'DistribusiController@hitungOtomatis', [[AuthMiddleware::class, ['admin', 'panitia']]]);
-
+$routes->get('/distribusi/kartu/{id}', 'DistribusiController@kartuQurban', [[AuthMiddleware::class, ['admin', 'panitia']]]);
 // ADMIN-PANITIA - SCAN
 $routes->get('/scan', 'ScanController@index', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->post('/scan/verify', 'ScanController@verify', [[AuthMiddleware::class, ['admin', 'panitia']]]);
+$routes->get('/scan/confirm/{id}', 'ScanController@confirm', [[AuthMiddleware::class, ['admin', 'panitia']]]);
 
 // WARGA - PROFILE & KARTU
 $routes->get('/profile', 'ProfileController@index');

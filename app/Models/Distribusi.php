@@ -42,5 +42,18 @@ class Distribusi extends Model
         $stmt->execute();
         return $stmt->fetch();
     }
+    
+    public function withUserAndRoleById($id)
+    {
+        $sql = "SELECT d.*, u.name, u.nik, u.role 
+                FROM distribusi d
+                JOIN users u ON d.user_id = u.id
+                WHERE d.id = :id
+                LIMIT 1";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 
 }

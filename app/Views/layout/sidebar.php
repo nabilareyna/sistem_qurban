@@ -42,6 +42,10 @@
                     <li><a href="/distribusi"><i class="bi bi-circle"></i><span>Distribusi List</span></a></li>
                     </li>
                 </ul>
+                <ul id="distribusi-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li><a href="/scan"><i class="bi bi-circle"></i><span>Scan QR Code</span></a></li>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">
