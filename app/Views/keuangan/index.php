@@ -10,26 +10,26 @@
 
     <div class="row mb-3">
         <div class="col-md-4">
-            <div class="card border bg-light">
+            <div class="card border-success shadow-sm">
                 <div class="card-body">
-                    <h5>Pemasukan</h5>
-                    <p class="fw-bold text-success">Rp<?= number_format($masuk, 0, ',', '.') ?></p>
+                    <h5 class="card-title text-success">Pemasukan</h5>
+                    <h3 class="fw-bold text-success">Rp<?= number_format($masuk, 0, ',', '.') ?></h3>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card border bg-light">
+            <div class="card border-warning shadow-sm">
                 <div class="card-body">
-                    <h5>Pengeluaran</h5>
-                    <p class="fw-bold text-danger">Rp<?= number_format($keluar, 0, ',', '.') ?></p>
+                    <h5 class="card-title text-danger">Pengeluaran</h5>
+                    <h3 class="fw-bold text-danger">Rp<?= number_format($keluar, 0, ',', '.') ?></h3>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card border bg-light">
+            <div class="card border-primary bg-light">
                 <div class="card-body">
-                    <h5>Saldo Akhir</h5>
-                    <p class="fw-bold text-primary">Rp<?= number_format($saldo, 0, ',', '.') ?></p>
+                    <h5 class="card-title text-primary">Saldo Akhir</h5>
+                    <h3 class="fw-bold text-primary">Rp<?= number_format($saldo, 0, ',', '.') ?></h3>
                 </div>
             </div>
         </div>
