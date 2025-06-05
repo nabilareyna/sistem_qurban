@@ -7,5 +7,5 @@ use App\Cores\Model;
 class Keuangan extends Model
 {
     protected $table = 'keuangan';
-    protected $fillable = ['tipe', 'kategori', 'jumlah', 'catatan'];
+    protected $fillable = ['tipe', 'kategori', 'jumlah', 'catatan', 'created_at'];
 }

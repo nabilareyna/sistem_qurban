@@ -1,60 +1,75 @@
-<aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-            <a class="nav-link " href="/dashboard">
-                <i class="bi bi-speedometer2"></i> <!-- Ikon dashboard lebih spesifik -->
-                <span>Dashboard</span>
+<?php
+$currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+?>
+
+<div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/dashboard" class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="brand-text">QurbanKita</div>
             </a>
-        </li><!-- End Dashboard Nav -->
+        </div>
         
-        <?php if ($role === 'admin'): ?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/users">
-                    <i class="bi bi-people"></i> <!-- Ikon pengguna -->
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="/dashboard" class="nav-link <?= $currentPath == '/dashboard' ? 'active' : '' ?>">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <?php if ($role === 'admin'): ?>
+            <div class="nav-item">
+                <a href="/admin/users" class="nav-link <?= $currentPath == '/admin/users' ? 'active' : '' ?>">
+                    <i class="fas fa-users"></i>
                     <span>Kelola Pengguna</span>
                 </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#keuangan-nav" data-bs-toggle="collapse" href="/admin/keuangan">
-                    <i class="bi bi-cash-coin"></i> <!-- Ikon keuangan -->
-                    <span>Keuangan</span><i class="bi bi-chevron-down ms-auto"></i>
+            </div>
+            <div class="nav-item">
+                <a href="/admin/keuangan" class="nav-link <?= $currentPath == '/admin/keuangan' ? 'active' : '' ?>">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Data Keuangan</span>
                 </a>
-                <ul id="keuangan-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    <li><a href="/admin/keuangan"><i class="bi bi-wallet2"></i><span>Data Keuangan</span></a></li>                  
-                </ul>
-            </li>
-        <?php endif; ?>
-
-        <?php if ($role === 'admin' || $role === 'panitia'): ?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/qurban">
-                    <i class="bi bi-card-checklist"></i> <!-- Ikon daftar peserta -->
+            </div>
+            <?php endif; ?>
+            <?php if ($role === 'admin' || $role === 'panitia'): ?>
+            <div class="nav-item">
+                <a href="/qurban" class="nav-link <?= $currentPath == '/qurban' ? 'active' : '' ?>">
+                    <i class="fas fa-clipboard-list"></i>
                     <span>Peserta Qurban</span>
                 </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#distribusi-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-truck"></i> <!-- Ikon distribusi -->
-                    <span>Distribusi</span><i class="bi bi-chevron-down ms-auto"></i>
+            </div>
+            <div class="nav-item">
+                <a href="/distribusi" class="nav-link <?= $currentPath == '/distribusi' ? 'active' : '' ?>">
+                    <i class="fas fa-truck"></i>
+                    <span>List Distribusi</span>
                 </a>
-                <ul id="distribusi-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    <li><a href="/distribusi"><i class="bi bi-list-task"></i><span>Distribusi List</span></a></li>
-                    <li><a href="/scan"><i class="bi bi-qr-code-scan"></i><span>Scan QR Code</span></a></li>
-                </ul>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#laporan-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-clipboard-data"></i> <!-- Ikon laporan -->
-                    <span>Laporan Qurban</span><i class="bi bi-chevron-down ms-auto"></i>
+            </div>
+            <div class="nav-item">
+                <a href="/scan" class="nav-link <?= $currentPath == '/scan' ? 'active' : '' ?>">
+                    <i class="fas fa-qrcode"></i>
+                    <span>Scan QR Code</span>
                 </a>
-                <ul id="laporan-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    <li><a href="/admin/laporan/hewan"><i class="bi bi-diagram-3"></i><span>Data Hewan</span></a></li>
-                    <li><a href="/admin/laporan/distribusi"><i class="bi bi-pie-chart"></i><span>Distribusi Daging</span></a></li>
-                </ul>
-            </li>
-        <?php endif; ?>
-    </ul>
-</aside>
+            </div>
+            <div class="nav-item">
+                <a href="laporan.php" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Laporan</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="pengaturan.php" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </a>
+            </div>
+            <?php endif; ?>
+            <div class="nav-item mt-4">
+                <a href="/logout" class="nav-link" onclick="return confirm('Yakin ingin keluar?')">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </nav>
+    </div>

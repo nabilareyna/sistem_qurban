@@ -18,28 +18,28 @@ class DistribusiController
     const BOBOT_BERQURBAN = 4;
     const BOBOT_PANITIA = 3;
     const BOBOT_WARGA = 1;
+    
 
     // Total daging dalam gram (100kg sapi + 100kg kambing)
-    const TOTAL_DAGING = 200000;
 
     public function index()
     {
         $model = new Distribusi();
         $data = $model->withUser();
-
+        $qurbanModel = new Qurban();
         // Hitung total yang sudah dibagikan
         $total_terdistribusi = $model->totalTerdistribusi();
-        $sisa_daging = self::TOTAL_DAGING - $total_terdistribusi;
+        $sisa_daging = $qurbanModel->totalDaging() - $total_terdistribusi;
 
         if ($sisa_daging < 0) {
             // Log error atau beri peringatan
-            error_log("Peringatan: Distribusi melebihi stok! Total: " . self::TOTAL_DAGING . " Terdistribusi: $total_terdistribusi");
+            error_log("Peringatan: Distribusi melebihi stok! Total: " . $qurbanModel->totalDaging() . " Terdistribusi: $total_terdistribusi");
             $sisa_daging = 0;
         }
 
         echo Views::render('distribusi.index', [
             'distribusi' => $data,
-            'total' => self::TOTAL_DAGING,
+            'total' => $qurbanModel->totalDaging(),
             'terdistribusi' => $total_terdistribusi,
             'sisa' => $sisa_daging,
             'user' => Auth::user(),
@@ -182,7 +182,9 @@ class DistribusiController
 
         $model = new Distribusi();
         $total_terdistribusi = $model->totalTerdistribusi();
-        $sisa_daging = self::TOTAL_DAGING - $total_terdistribusi;
+        $qurbanModel = new Qurban();
+
+        $sisa_daging = $qurbanModel->totalDaging() - $total_terdistribusi;
 
         if ($data['jumlah_daging'] > $sisa_daging) {
             Flash::error('jumlah_daging', 'Jumlah melebihi stok! Sisa: ' . ($sisa_daging / 1000) . ' kg');

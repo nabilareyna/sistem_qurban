@@ -5,96 +5,76 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Sistem Qurban</title>
+    <title>Masuk - QurbanKita</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="<?= asset('img/favicon.png') ?>" rel="icon">
-    <link href="<?= asset('img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
 
-    <link href="<?= asset('vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
-    <link href="<?= asset('vendor/boxicons/css/boxicons.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('vendor/quill/quill.snow.css') ?>" rel="stylesheet">
-    <link href="<?= asset('vendor/quill/quill.bubble.css') ?>" rel="stylesheet">
-    <link href="<?= asset('vendor/remixicon/remixicon.css') ?>" rel="stylesheet">
-    <link href="<?= asset('vendor/simple-datatables/style.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/style.css') ?>" rel="stylesheet">
-
-    <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 20 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <link href="<?= asset('css/auth.css') ?>" rel="stylesheet">
 </head>
 
 <body>
 
     <main>
-        <div class="container">
-
-            <section
-                class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-                            <div class="d-flex justify-content-center py-4">
-                                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block">NiceAdmin</span>
-                                </a>
-                            </div><!-- End Logo -->
-
-                            <div class="card mb-3">
-
-                                <div class="card-body">
-
-                                    <?php App\Cores\Views::yieldSection('content') ?>
-
+        <div class="auth-container">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="card auth-card">
+                            <!-- Header -->
+                            <div class="auth-header">
+                                <div class="logo-icon">
+                                    <i class="fas fa-heart"></i>
                                 </div>
+                                <h2 class="mb-2">Selamat Datang Kembali</h2>
+                                <p class="mb-0 opacity-90">Masuk ke akun QurbanKita Anda</p>
                             </div>
 
-                            <div class="credits">
-                                <!-- All the links in the footer should remain intact. -->
-                                <!-- You can delete the links only if you purchased the pro version. -->
-                                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                            </div>
-
+                            <!-- Form -->
+                            <?php App\Cores\Views::yieldSection('content') ?>
                         </div>
                     </div>
                 </div>
-
-            </section>
-
-        </div>
+            </div>
     </main><!-- End #main -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <script>
+        // Toggle password visibility
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
 
-    <!-- Vendor JS Files -->
-    <script src="<?= asset('vendor/apexcharts/apexcharts.min.js') ?>"></script>
-    <script src="<?= asset('vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-    <script src="<?= asset('vendor/chart.js/chart.umd.js') ?>"></script>
-    <script src="<?= asset('vendor/echarts/echarts.min.js') ?>"></script>
-    <script src="<?= asset('vendor/quill/quill.js') ?>"></script>
-    <script src="<?= asset('vendor/simple-datatables/simple-datatables.js') ?>"></script>
-    <script src="<?= asset('vendor/tinymce/tinymce.min.js') ?>"></script>
-    <script src="<?= asset('vendor/php-email-form/validate.js') ?>"></script>
-    <script src="<?= asset('js/main.js') ?>"></script>
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
 
+        // Form validation feedback
+        document.addEventListener('DOMContentLoaded', function () {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Memproses...';
+                        submitBtn.disabled = true;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -9,18 +9,18 @@
     <a href="/qurban/create" class="btn btn-success mb-3">+ Tambah Peserta</a>
 
     <div class="card">
-        <div class="card-body pt-3">
-            <table class="table table-bordered table-striped">
-                <thead class="table-dark">
+        <div class="card-body pt-3 table-responsive">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nama Warga</th>
-                        <th>NIK</th>
-                        <th>Jenis Hewan</th>
-                        <th>Jumlah Bagian</th>
-                        <th>Harga Hewan</th>
-                        <th>Status Bayar</th>
-                        <th>Aksi</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Warga</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Hewan</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Bagian</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Hewan</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status Bayar</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,20 +28,20 @@
                         <?php $no = 1;
                         foreach ($qurbans as $row): ?>
                             <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= htmlspecialchars($row->user_name) ?></td>
-                                <td><?= htmlspecialchars($row->nik) ?></td>
-                                <td><?= ucfirst($row->hewan_jenis) ?></td>
-                                <td><?= $row->jumlah ?> bagian</td>
-                                <td>Rp<?= number_format(	$row->hewan_harga, 0, ',', '.') ?></td>
-                                <td>
+                                <td class="mb-0 text-xs"><?= $no++ ?></td>
+                                <td class="mb-0 text-xs"><?= htmlspecialchars($row->user_name) ?></td>
+                                <td class="mb-0 text-xs"><?= htmlspecialchars($row->nik) ?></td>
+                                <td class="mb-0 text-xs"><?= ucfirst($row->hewan_jenis) ?></td>
+                                <td class="mb-0 text-xs"><?= $row->jumlah ?> bagian</td>
+                                <td class="mb-0 text-xs">Rp<?= number_format(	$row->hewan_harga, 0, ',', '.') ?></td>
+                                <td class="mb-0 text-xs">
                                     <?php if ($row->status_bayar === 'lunas'): ?>
                                         <span class="badge bg-success">Lunas</span>
                                     <?php else: ?>
                                         <span class="badge bg-warning text-dark">Belum</span>
                                     <?php endif; ?>
                                 </td>
-                                <td>
+                                <td class="mb-0 text-xs">
                                     <a href="/qurban/edit/<?= $row->id ?>" class="btn btn-sm btn-primary">Edit</a>
                                     <a href="/qurban/delete/<?= $row->id ?>" class="btn btn-sm btn-danger"
                                         onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
@@ -50,7 +50,7 @@
                         <?php endforeach ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="8" class="text-center">Belum ada data peserta qurban.</td>
+                            <td colspan="8" class="mb-0 text-xs">Belum ada data peserta qurban.</td>
                         </tr>
                     <?php endif ?>
                 </tbody>

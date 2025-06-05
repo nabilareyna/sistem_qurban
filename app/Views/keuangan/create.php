@@ -35,6 +35,13 @@
                     <textarea name="catatan" class="form-control" rows="3"></textarea>
                 </div>
 
+                <div class="mb-3">
+                    <label for="created_at" class="form-label fw-bold">Tanggal</label>
+                    <input type="date" name="created_at" class="form-control"
+                        value="<?= App\Cores\Flash::get('old_created_at') ?? date('Y-m-d') ?>" required>
+                    <small class="text-muted">Tanggal data keuangan dimasukkan</small>
+                </div>
+
                 <button class="btn btn-primary">Simpan</button>
                 <a href="/admin/keuangan" class="btn btn-secondary">Batal</a>
             </form>

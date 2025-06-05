@@ -34,6 +34,7 @@ class AuthController
             foreach ($validator->errors() as $field => $messages) {
                 foreach ($messages as $message) {
                     Flash::set("error_{$field}", $message);
+                    Flash::setOld($data);
                 }
             }
 

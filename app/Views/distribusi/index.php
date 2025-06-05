@@ -68,33 +68,32 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- Tabel Distribusi -->
-<div class="card shadow-sm">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Nama</th>
-                        <th>NIK</th>
-                        <th>Role</th>
-                        <th>Jatah (gram)</th>
-                        <th>Status</th>
-                        <th>QR Code</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($distribusi as $key => $d): ?>
+    <!-- Tabel Distribusi -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                    <thead class="">
                         <tr>
-                            <td><?= $key + 1 ?></td>
-                            <td><?= $d->name ?></td>
-                            <td><?= $d->nik ?></td>
-                            <td>
-                                <span class="badge 
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jatah (gram)</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">QR Code</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($distribusi as $key => $d): ?>
+                            <tr>
+                                <td class="mb-0 text-xs"><?= $key + 1 ?></td>
+                                <td class="mb-0 text-xs"><?= $d->name ?></td>
+                                <td class="mb-0 text-xs"><?= $d->nik ?></td>
+                                <td class="mb-0 text-xs">
+                                    <span class="badge 
                                         <?php
                                         if ($d->role == 'berqurban') {
                                             echo 'bg-success';
@@ -104,42 +103,45 @@
                                             echo 'bg-secondary';
                                         }
                                         ?>">
-                                    <?= htmlspecialchars($d->role) ?>
-                                </span>
+                                        <?= htmlspecialchars($d->role) ?>
+                                    </span>
 
-                            </td>
-                            <td><?= number_format($d->jumlah_daging) ?> g</td>
-                            <td>
-                                <?php
-                                $ambilClass = ($d->status_ambil === 'sudah') ? 'bg-success' : 'bg-warning text-dark';
-                                ?>
-                                <span class="badge <?= $ambilClass ?>">
-                                    <?= htmlspecialchars($d->status_ambil) ?>
-                                </span>
+                                </td>
+                                <td class="mb-0 text-xs"><?= number_format($d->jumlah_daging) ?> g</td>
+                                <td class="mb-0 text-xs">
+                                    <?php
+                                    $ambilClass = ($d->status_ambil === 'sudah') ? 'bg-success' : 'bg-warning text-dark';
+                                    ?>
+                                    <span class="badge <?= $ambilClass ?>">
+                                        <?= htmlspecialchars($d->status_ambil) ?>
+                                    </span>
 
-                            </td>
-                            <td>
-                                <a href="/distribusi/kartu/<?= $d->id ?>" class="btn btn-sm btn-outline-info"
-                                    target="_blank">
-                                    <i class="fas fa-qrcode"></i> Kartu
-                                </a>
-                            </td>
-                            <td>
-                                <div class="d-flex gap-1">
-                                    <a href="/distribusi/edit/<?= $d->id ?>" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit">Edit</i>
+                                </td>
+                                <td class="mb-0 text-xs">
+                                    <a href="/distribusi/kartu/<?= $d->id ?>" class="btn btn-sm btn-outline-info"
+                                        target="_blank">
+                                        <i class="fas fa-qrcode"></i> Kartu
                                     </a>
-                                    <a href="/distribusi/delete/<?= $d->id ?>" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Hapus distribusi ini?')">Hapus</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                                </td>
+                                <td class="mb-0 text-xs">
+                                    <div class="d-flex gap-1">
+                                        <a href="/distribusi/edit/<?= $d->id ?>" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="/distribusi/delete/<?= $d->id ?>" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Hapus distribusi ini?')">Hapus</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+
 
 <!-- Informasi Pembagian -->
 <div class="card border-info mt-4">

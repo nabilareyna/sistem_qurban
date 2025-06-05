@@ -36,31 +36,31 @@
     </div>
 
     <div class="card">
-        <div class="card-body pt-3">
-            <table class="table table-bordered">
+        <div class="table-responsive">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>Tipe</th>
-                        <th>Kategori</th>
-                        <th>Jumlah</th>
-                        <th>Catatan</th>
-                        <th>Tanggal</th>
-                        <th>Aksi</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipe</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kategori</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jumlah</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Catatan</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($keuangan as $k): ?>
                         <tr>
-                            <td>
+                            <td class="mb-0 text-xs">
                                 <span class="badge bg-<?= $k->tipe === 'masuk' ? 'success' : 'danger' ?>">
                                     <?= ucfirst($k->tipe) ?>
                                 </span>
                             </td>
-                            <td><?= htmlspecialchars($k->kategori) ?></td>
-                            <td>Rp<?= number_format($k->jumlah, 0, ',', '.') ?></td>
-                            <td><?= nl2br(htmlspecialchars($k->catatan)) ?></td>
-                            <td><?= date('d-m-Y H:i', strtotime($k->created_at)) ?></td>
-                            <td>
+                            <td class="mb-0 text-xs"><?= htmlspecialchars($k->kategori) ?></td>
+                            <td class="mb-0 text-xs">Rp<?= number_format($k->jumlah, 0, ',', '.') ?></td>
+                            <td class="mb-0 text-xs"><?= nl2br(htmlspecialchars($k->catatan)) ?></td>
+                            <td class="mb-0 text-xs"><?= date('d-m-Y H:i', strtotime($k->created_at)) ?></td>
+                            <td class="mb-0 text-xs">
                                 <a href="/admin/keuangan/<?= $k->id ?>/edit" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="/admin/keuangan/<?= $k->id ?>/delete"
                                     onclick="return confirm('Hapus transaksi ini?')" class="btn btn-sm btn-danger">Hapus</a>

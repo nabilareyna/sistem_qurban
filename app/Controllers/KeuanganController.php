@@ -49,7 +49,7 @@ class KeuanganController
         $validate->validate($data, [
             'tipe' => 'required',
             'kategori' => 'required',
-            'jumlah' => 'required'
+            'jumlah' => 'required',
         ]);
 
         if ($validate->fails()) {
@@ -67,7 +67,8 @@ class KeuanganController
             'tipe' => $data['tipe'],
             'kategori' => $data['kategori'],
             'jumlah' => $data['jumlah'],
-            'catatan' => $data['catatan'] ?? null
+            'catatan' => $data['catatan'] ?? null,
+            'created_at' => $data['created_at'] . ' ' . date('H:i:s')
         ]);
 
         header('Location: /admin/keuangan');
